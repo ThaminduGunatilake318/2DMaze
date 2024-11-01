@@ -1,0 +1,172 @@
+PARSER_BEGIN(GameParser)
+package edu.curtin.saed.assignment2.Parser;
+
+import java.util.*;
+
+public class GameParser {
+    public static void main(String[] args) throws ParseException {
+        GameParser parser = new GameParser(System.in);
+        parser.parse();
+    }
+}
+PARSER_END(GameParser)
+
+// Tokens
+SKIP :
+{
+    " " | "\t" | "\n" | "\r"
+}
+
+TOKEN :
+{
+    <SIZE: "size">
+|   <START: "start">
+|   <GOAL: "goal">
+|   <ITEM: "item">
+|   <OBSTACLE: "obstacle">
+|   <PLUGIN: "plugin">
+|   <SCRIPT: "script">
+|   <AT: "at">
+|   <MESSAGE: "message">
+|   <REQUIRES: "requires">
+|   <LBRACE: "{">
+|   <RBRACE: "}">
+|   <LPAREN: "(">
+|   <RPAREN: ")">
+|   <COMMA: ",">
+|   <EXCLAM: "!">
+|   <STRING: "\"" (~["\""])* "\"">    // Matches any quoted string
+|   <NUMBER: (["0"-"9"])+>              // Matches positive integers
+}
+
+// Main Parsing Rules
+void parse() :
+{}
+{
+    sizeDeclaration()
+    startDeclaration()
+    goalDeclaration()
+    (
+        itemDeclaration()
+        | obstacleDeclaration()
+        | pluginDeclaration()
+        | scriptDeclaration()
+    )*
+    <EOF>
+}
+
+void sizeDeclaration() :
+{
+    int rows, cols;
+}
+{
+    <SIZE> <LPAREN> rows = integer() <COMMA> cols = integer() <RPAREN> { GameData.size = new int[]{rows, cols}; }
+}
+
+void startDeclaration() :
+{
+    int row, col;
+}
+{
+    <START> <LPAREN> row = integer() <COMMA> col = integer() <RPAREN> { GameData.start = new int[]{row, col}; }
+}
+
+void goalDeclaration() :
+{
+    int row, col;
+}
+{
+    <GOAL> <LPAREN> row = integer() <COMMA> col = integer() <RPAREN> { GameData.goal = new int[]{row, col}; }
+}
+
+void itemDeclaration() :
+{
+    String name;
+    ArrayList positions = new ArrayList();  // Avoid using generics directly
+    String message;
+}
+{
+    <ITEM> name = quotedString() <LBRACE> <AT> positionList(positions) <MESSAGE> message = quotedString() <RBRACE>
+    {
+        GameData.items.add(new GameData.Item(name, (List<int[]>) positions, message));
+    }
+}
+
+void obstacleDeclaration() :
+{
+    ArrayList positions = new ArrayList();  // Avoid using generics directly
+    ArrayList requirements = new ArrayList();
+}
+{
+    <OBSTACLE> <LBRACE> <AT> positionList(positions) <REQUIRES> requirementList(requirements) <RBRACE>
+    {
+        GameData.obstacles.add(new GameData.Obstacle((List<int[]>) positions, (List<String>) requirements));
+    }
+}
+
+void pluginDeclaration() :
+{
+    String pluginName;
+}
+{
+    <PLUGIN> pluginName = identifier() { GameData.plugins.add(pluginName); }
+}
+
+void scriptDeclaration() :
+{
+    String scriptCode;
+}
+{
+    <SCRIPT> <EXCLAM> <LBRACE> scriptCode = freeFormString() <RBRACE> { GameData.scripts.add(scriptCode); }
+}
+
+// Helper Parsing Rules
+int integer() :
+{
+    Token t;
+}
+{
+    t = <NUMBER> { return Integer.parseInt(t.image); }
+}
+
+String quotedString() :
+{
+    Token t;
+}
+{
+    t = <STRING> { return t.image.substring(1, t.image.length() - 1); }
+}
+
+void positionList(ArrayList positions) :
+{
+    int row, col;
+}
+{
+    <LPAREN> row = integer() <COMMA> col = integer() <RPAREN> { positions.add(new int[]{row, col}); }
+    ( <COMMA> <LPAREN> row = integer() <COMMA> col = integer() <RPAREN> { positions.add(new int[]{row, col}); } )*
+}
+
+void requirementList(ArrayList requirements) :
+{
+    String item;
+}
+{
+    item = quotedString() { requirements.add(item); }
+    ( <COMMA> item = quotedString() { requirements.add(item); } )*
+}
+
+String identifier() :
+{
+    Token t;
+}
+{
+    t = <STRING> { return t.image.substring(1, t.image.length() - 1); }
+}
+
+String freeFormString() :
+{
+    Token t;
+}
+{
+    t = <STRING> { return t.image.substring(1, t.image.length() - 1); }
+}

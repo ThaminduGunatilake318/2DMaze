@@ -1,0 +1,109 @@
+size (11,10)
+start (3,9)
+goal (2,6)
+item "blue amulet" {
+  at (4,4), (4,9), (8,6), (10,1), (0,1), (6,6), (10,2), (1,1), (5,5), (7,8), (4,5), (0,3), (6,0), (1,4), (8,2), (6,7), (6,2), (7,0), (2,1), (2,8), (3,9)
+  message "RwuAeWCQ1"
+}
+
+script !{
+E&*d bXW*+
+9"W!_f4<yj(5j]Qn
+}
+
+plugin Wo.clR
+
+obstacle {
+  at (0,0)
+  requires "blue amulet"
+}
+
+obstacle {
+  at (4,6), (5,9), (5,6)
+  requires "blue amulet"
+}
+
+script !{
+x[
+
+B2hatfl$/s%Y4EOkA]v^Wv1Jr
+}
+
+obstacle {
+  at (0,9), (10,4), (5,7)
+  requires "blue amulet"
+}
+
+obstacle {
+  at (2,0), (7,3), (2,6), (8,0), (3,7)
+  requires "blue amulet"
+}
+
+obstacle {
+  at (9,7), (0,4)
+  requires "blue amulet"
+}
+
+plugin ufP.nyBI.nST.Ye.Ip.pvre
+
+obstacle {
+  at (3,0), (4,1), (10,8)
+  requires "blue amulet"
+}
+
+plugin ule.JRid.CjE.GM.vyGD.lQ
+
+script !{
+^\eqK7n|4`Lj/`w_Whk<&>=9k
+-#L"!1Xz`%p>!D]6zR1s42I
+@LRo?T!b{l0p)O)<F
+}
+
+plugin gry.TRa.VxEL.SMB.WMQIk.EdL
+
+plugin lMooK.Qvi.uM.jTWm.TFLt.ZQ
+
+script !{
+CC9d(>:m"CwtU8*\0
+*pk!jZdY,cm&~OEv~&
+zP_sr:Hp( +C{M2j;d#YC$2]hrEBO*peo
+WP`%[:r[xn
+}
+
+plugin So.adNg.Myu.HTzm
+
+script !{
+"[1LRS6&JS6&A[u]U"B4t+&MnyH^Y'"^x3
+r0b`|I=e0.9ovJ=.^"A7{F."E+'G`=@SZ)^M
+}
+
+obstacle {
+  at (9,2), (5,4), (6,3), (1,0), (9,3), (5,8), (8,3), (1,7)
+  requires "blue amulet"
+}
+
+script !{
+pY\+"rjbcQhu`O5NHI=/CaPV=uc"PeX]M;RW
+F@6crV;+
+V|@cO{(<TJc?bIJ(TE9g:BV_J)ZxLti49e23
+5*Hv rb_cHf\.8:-5fix)^h
+IuiN0R^Sw_ :OT^[v;zj6R+@d?*;x=R\)tv7Xe,
+}
+
+script !{
+`[$;4X5q2 
+!HC;RUWU
+}
+
+obstacle {
+  at (10,6), (5,3), (8,8)
+  requires "blue amulet"
+}
+
+plugin HXBzL.MWnQk.KjZ.CclNT.nJeQ.jLq
+
+obstacle {
+  at (5,1), (2,2), (7,7), (6,8)
+  requires "blue amulet"
+}
+

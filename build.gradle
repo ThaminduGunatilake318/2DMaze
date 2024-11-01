@@ -1,0 +1,48 @@
+plugins {
+    id "java"
+    id "application"
+    id "pmd"
+    id "org.openjfx.javafxplugin" version "0.0.13"
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://mvnrepository.com/artifact/net.java.dev.javacc/javacc'
+    }
+}
+
+dependencies {
+    implementation "org.apache.commons:commons-lang3:3.0"
+    testImplementation "junit:junit:4.1"
+    implementation group: 'net.java.dev.javacc', name: 'javacc', version: '7.0.10'
+}
+
+application {
+    mainClass = "edu.curtin.saed.assignment1.App"
+}
+
+javafx {
+    version = '22.0.2'
+    modules = [ 'javafx.controls' ]
+}
+
+pmd {
+    consoleOutput = true
+    toolVersion = "7.3.0"
+    rulesMinimumPriority = 51
+    ruleSets = []
+    ruleSetFiles = files("saed-pmd-rules.xml")
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:all,-serial"
+}
+
+tasks.named("run") {
+    environment["PATH"] = (
+            layout.projectDirectory.dir("comms").dir("bin").toString()
+                    + File.pathSeparator
+                    + System.getenv("PATH"))
+    // + environment["PATH"])
+}
